@@ -1,0 +1,28 @@
+// LDR ile gece yanan lamba
+#define LDR_PIN A0 // LDR'nin bağlanacağı pin
+#define LED_PIN 3 // LED'in bağlanacağı pin
+#define ROLE_PIN 2 // RÖLE'nin bağlanacağı pin
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(LDR_PIN, INPUT); // Pinlerin ne amaçla kullanılacağı.
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(ROLE_PIN, OUTPUT);
+}
+
+void loop()
+{
+  int deger=analogRead(LDR_PIN);
+  Serial.println(deger); // Karanlıkdeğerini bulmak için.
+  if(deger > 100)
+    digitalWrite(LED_PIN, HIGH); // Karanlıkta yansın.
+  else
+    digitalWrite(LED_PIN, LOW); // Belli ışıkta sönsün.
+
+  // LED yanınca röle de çeksin.
+  digitalWrite(ROLE_PIN, digitalRead(LED_PIN));
+  
+  delay(1000); // 1 saniye beklesin
+  
+}
